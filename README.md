@@ -20,6 +20,9 @@ if (fn1() && fn2()) {}
 // example 3
 fn1((a,b) => fn2(b,a));
 
+// example 4
+fn({a: fn1(), b: fn2()});
+
 ```
 
 In each case, imagine you want to insert a breakpoint using `debugger` before
@@ -38,6 +41,9 @@ if (fn1() && ((() => {debugger;})() || fn2())) {}
 
 // example 3
 fn1((a,b) => {debugger; return fn2(b,a)});
+
+// example 4
+fn({a: fn1(), b: (() => {debugger; return fn2()})});
 
 ```
 
@@ -59,6 +65,9 @@ if (fn1() && debugger fn2()) {}
 
 // example 3
 fn1((a,b) => debugger fn2(b,a));
+
+// example 4
+fn({a: fn1(), b: debugger fn2()});
 
 ```
 
@@ -152,7 +161,7 @@ render the result of a breakpoint in the middle of an expression, we can use
     the gutter of the affected line. The cursor is moved to the start of the
     `debugger` statement.
  * Chrome Inspector - Highlights from the breakpoint location to the end of the
-    line (possibly a bug). Also highlights the entire line in a lighter color. The
+    line (a bug?). Also highlights the entire line in a lighter color. The
     cursor is moved to the start of the `debugger` statement.
  * FireFox Debugger - Highlights the entire line. The cursor is placed on the first
     column of the line.
